@@ -30,18 +30,21 @@ echo ""
 
 # 计算时间
 TARGET_DATE=$(date -d "tomorrow $TARGET_TIME" +%s)
-PREWARM_DATE=$(date -d "tomorrow $TARGET_TIME - $PREWARM_MINUTES minutes" +%s)
 CURRENT_DATE=$(date +%s)
-
 WAIT_SECONDS=$((TARGET_DATE - CURRENT_DATE))
-PREWARM_SECONDS=$((PREWARM_DATE - CURRENT_DATE))
+
+# 预热时间 = 目标时间 - 提前分钟数
+PREWARM_SECONDS=$((WAIT_SECONDS - PREWARM_MINUTES * 60))
+
+PREWARM_TIME_STR=$(date -d "@$((CURRENT_DATE + PREWARM_SECONDS))" '+%Y-%m-%d %H:%M:%S')
+TARGET_TIME_STR=$(date -d "@$((CURRENT_DATE + WAIT_SECONDS))" '+%Y-%m-%d %H:%M:%S')
 
 echo "📊 时间计算："
 echo "   当前时间：$(date '+%Y-%m-%d %H:%M:%S')"
-echo "   预热时间：$(date -d "tomorrow $TARGET_TIME - $PREWARM_MINUTES minutes" '+%Y-%m-%d %H:%M:%S')"
-echo "   目标时间：$(date -d "tomorrow $TARGET_TIME" '+%Y-%m-%d %H:%M:%S')"
-echo "   距离预热：$PREWARM_SECONDS 秒"
-echo "   距离目标：$WAIT_SECONDS 秒"
+echo "   预热时间：$PREWARM_TIME_STR"
+echo "   目标时间：$TARGET_TIME_STR"
+echo "   距离预热：$PREWARM_SECONDS 秒（约 $((PREWARM_SECONDS / 3600)) 小时）"
+echo "   距离目标：$WAIT_SECONDS 秒（约 $((WAIT_SECONDS / 3600)) 小时）"
 echo ""
 
 # 保存 PID
