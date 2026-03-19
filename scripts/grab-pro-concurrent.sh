@@ -3,7 +3,7 @@
 # 使用方法：bash grab-pro-concurrent.sh [实例数量]
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-INSTANCE_COUNT=${1:-3}  # 默认 3 个实例
+INSTANCE_COUNT=${1:-${INSTANCE_COUNT:-5}}  # 默认 5 个实例，可通过环境变量覆盖
 LOG_FILE="/tmp/grab-concurrent.log"
 
 # 配置账号信息

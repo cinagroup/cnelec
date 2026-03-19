@@ -14,11 +14,17 @@ export BIGMODEL_PASSWORD="qq123456789"
 export PLAN_TYPE="Pro"
 export MAX_RETRIES=100         # 守护模式下增加重试次数
 export RETRY_DELAY=0.2         # 更快的重试间隔
+export PAGE_TIMEOUT=30000      # 页面加载超时 30 秒
+export CLICK_TIMEOUT=5000      # 点击超时 5 秒
+export ENABLE_RANDOM_DELAY=true
+export INSTANCE_COUNT=5        # 并发实例数
 
-echo "🛡️  bigmodel.cn 抢购守护进程"
+echo "🛡️  bigmodel.cn 抢购守护进程（高并发模式）"
 echo "========================================"
 echo "⏰ 目标时间：明天 $TARGET_TIME"
 echo "🔥 预热时间：提前 $PREWARM_MINUTES 分钟"
+echo "📦 并发实例：${INSTANCE_COUNT:-5}"
+echo "📊 总尝试次数：$((INSTANCE_COUNT * MAX_RETRIES))"
 echo "📝 日志：$LOG_FILE"
 echo ""
 
@@ -51,8 +57,8 @@ run_grab() {
     cd "$SCRIPT_DIR"
     
     if [ "$mode" = "concurrent" ]; then
-        # 并发模式：启动 5 个实例
-        bash grab-pro-concurrent.sh 5 2>&1 | tee -a "$LOG_FILE"
+        # 并发模式：启动指定数量的实例
+        bash grab-pro-concurrent.sh ${INSTANCE_COUNT:-5} 2>&1 | tee -a "$LOG_FILE"
     else
         # 单实例模式
         python3 grab-pro-fast.py 2>&1 | tee -a "$LOG_FILE"
