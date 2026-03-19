@@ -21,7 +21,7 @@ def pre_login():
         sys.exit(1)
     
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)
+        browser = p.chromium.launch(headless=True)
         context = browser.new_context(viewport={'width': 1920, 'height': 1080})
         page = context.new_page()
         

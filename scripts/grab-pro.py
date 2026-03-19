@@ -29,11 +29,12 @@ def grab_pro():
     with sync_playwright() as p:
         # 启动浏览器（高性能模式）
         browser = p.chromium.launch(
-            headless=False,  # 显示浏览器便于观察
+            headless=True,  # 无头模式（服务器环境）
             args=[
                 '--disable-gpu',
                 '--no-sandbox',
-                '--disable-dev-shm-usage'
+                '--disable-dev-shm-usage',
+                '--disable-setuid-sandbox'
             ]
         )
         
