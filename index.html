@@ -21,20 +21,28 @@
     h1 { margin: 0; font-size: clamp(34px, 5.5vw, 72px); line-height: 1.1; letter-spacing: -.065em; font-weight: 700; overflow-wrap: anywhere; }
     .summary { margin: 22px auto 0; font-size: 20px; line-height: 1.6; letter-spacing: .015em; }
     .divider { width: 64px; height: 1px; background: var(--ink); margin: 22px auto; }
-    .price { margin: 0; font-size: 56px; font-weight: 700; line-height: 1.1; letter-spacing: -.05em; }
+    .price { margin: 0; font-size: 56px; font-weight: 700; line-height: 1.1; letter-spacing: -.05em; font-variant-numeric: tabular-nums; }
+    .converted-price { margin: 6px 0 0; color: #44516a; font-size: 19px; line-height: 1.4; font-variant-numeric: tabular-nums; }
+    .price-note, .exchange-note { margin: 6px 0 0; color: #526077; font: 13px/1.5 "Segoe UI", "PingFang SC", sans-serif; }
+    .exchange-note a { color: inherit; text-underline-offset: 3px; }
     .cta { display: inline-flex; min-height: 48px; min-width: 220px; justify-content: center; align-items: center; margin-top: 24px; padding: 12px 28px; border-radius: 8px; color: #fff; background: var(--blue); font-size: 17px; font-weight: 700; text-decoration: none; transition: background-color .2s ease; }
     .cta:hover { background: #00359f; }
+    .email { display: block; width: fit-content; margin: 9px auto 0; color: var(--ink); font: 14px/1.5 "Segoe UI", sans-serif; text-underline-offset: 3px; }
     :focus-visible { outline: 3px solid #3c7cf0; outline-offset: 4px; }
     .details { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 18px 8px; font-size: 17px; line-height: 1.7; }
     .details p { margin: 0; }
     footer { padding: 16px 0 20px; text-align: center; font-size: 14px; line-height: 1.6; }
     @media (min-width: 601px) and (max-height: 700px) {
-      .hero { padding: 24px 0 22px; }
+      .hero { padding: 18px 0; }
       h1 { font-size: clamp(34px, 5vw, 60px); }
-      .summary { margin-top: 18px; font-size: 18px; }
-      .divider { margin: 18px auto; }
+      .summary { margin-top: 14px; font-size: 17px; }
+      .divider { margin: 14px auto; }
       .price { font-size: 48px; }
-      .cta { margin-top: 20px; }
+      .converted-price { font-size: 17px; }
+      .price-note, .exchange-note { margin-top: 4px; font-size: 12px; line-height: 1.4; }
+      .cta { margin-top: 14px; }
+      .details { padding: 14px 8px; font-size: 16px; }
+      footer { padding: 12px 0 14px; }
     }
     @media (max-width: 600px) {
       .page { width: calc(100% - 36px); }
@@ -42,14 +50,14 @@
       .brand { font-size: 21px; }
       .languages { gap: 9px; }
       .languages button { font-size: 15px; }
-      .hero { padding: 36px 0 28px; }
+      .hero { padding: 28px 0 20px; }
       h1 { font-size: clamp(30px, 9vw, 40px); letter-spacing: -.06em; }
-      .summary { margin-top: 20px; font-size: 16px; }
-      .divider { margin: 20px auto; }
-      .price { font-size: 44px; }
-      .cta { width: min(100%, 260px); margin-top: 24px; }
-      .details { padding: 18px 0; font-size: 16px; }
-      footer { font-size: 14px; }
+      .summary { margin-top: 16px; font-size: 16px; }
+      .divider { margin: 16px auto; }
+      .price { font-size: clamp(28px, 8.5vw, 38px); }
+      .cta { width: min(100%, 260px); margin-top: 20px; }
+      .details { padding: 14px 0; font-size: 16px; }
+      footer { padding: 12px 0 14px; font-size: 14px; }
     }
     @media (prefers-reduced-motion: reduce) { .cta { transition: none; } }
   </style>
@@ -69,8 +77,12 @@
         <h1 id="domain">china-electric.com</h1>
         <p class="summary" data-zh="面向电力及新能源领域的优质域名，简洁易记，品牌辨识度高。" data-en="A clear, memorable domain for electric power and new energy.">面向电力及新能源领域的优质域名，简洁易记，品牌辨识度高。</p>
         <div class="divider" aria-hidden="true"></div>
-        <p class="price" data-zh="¥8,888,888" data-en="$1,250,000">¥8,888,888</p>
-        <a class="cta" href="https://whois.cloud.tencent.com/whoisform?domain=china-electric.com" data-zh="查询购买" data-en="Purchase inquiry">查询购买</a>
+        <p class="price" id="price">¥8,888,888.00</p>
+        <p class="converted-price" id="converted-price">≈ US$1,332,622.09</p>
+        <p class="exchange-note"><a href="https://frankfurter.dev/" target="_blank" rel="noopener noreferrer">Frankfurter</a><span id="exchange-status"> · 参考汇率 · 2026-11-22</span></p>
+        <noscript><p class="price-note">启用 JavaScript 以查看动态价格。Enable JavaScript for the current price.</p></noscript>
+        <a class="cta" href="mailto:info@china-electric.com" data-zh="邮件联系购买" data-en="Email to purchase">邮件联系购买</a>
+        <a class="email" href="mailto:info@china-electric.com">info@china-electric.com</a>
       </section>
       <section class="details" aria-label="Domain details">
         <p><strong data-zh="适用行业：" data-en="Suitable for: ">适用行业：</strong><span data-zh="电力、电气设备、新能源、清洁能源、智能电网和电动汽车等领域的企业、平台或品牌。" data-en="Companies, platforms and brands in electric power, electrical equipment, renewable energy, clean energy, smart grids and electric vehicles.">电力、电气设备、新能源、清洁能源、智能电网和电动汽车等领域的企业、平台或品牌。</span></p>
@@ -79,14 +91,85 @@
     <footer data-zh="china-electric.com 域名出售" data-en="china-electric.com is for sale">china-electric.com 域名出售</footer>
   </div>
   <script>
+    // A single, fixed starting point keeps the price consistent across reloads and visitors.
+    const pricing = {
+      baseCents: 888888800,
+      startsAt: Date.parse('2026-11-22T11:51:08Z'),
+      exchangeUrl: 'https://api.frankfurter.dev/v2/rate/CNY/USD',
+      cacheKey: 'china-electric:exchange-rate:v1',
+      refreshMs: 5 * 60 * 1000
+    };
+    const priceElement = document.getElementById('price');
+    const convertedElement = document.getElementById('converted-price');
+    const exchangeStatus = document.getElementById('exchange-status');
+    const numberFormat = new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    let currentLanguage = 'zh';
+    // A dated reference-rate snapshot is available while the live request loads or is offline.
+    let exchange = { rate: 0.14992, date: '2026-11-22' };
+    let usingSavedRate = true;
+
+    function validExchange(value) {
+      return value && Number.isFinite(value.rate) && value.rate > 0 &&
+        /^\d{4}-\d{2}-\d{2}$/.test(value.date) && Number.isFinite(Date.parse(value.date));
+    }
+
+    try {
+      const saved = JSON.parse(localStorage.getItem(pricing.cacheKey));
+      if (validExchange(saved) && saved.date >= exchange.date) exchange = saved;
+    } catch { /* Storage can be unavailable in private or restricted browsing. */ }
+
+    function renderPrice() {
+      const elapsedSeconds = Math.max(0, Math.floor((Date.now() - pricing.startsAt) / 1000));
+      const cnyCents = pricing.baseCents + elapsedSeconds;
+      const usdCents = Math.round(cnyCents * exchange.rate);
+      const cny = '¥' + numberFormat.format(cnyCents / 100);
+      const usd = 'US$' + numberFormat.format(usdCents / 100);
+      priceElement.textContent = currentLanguage === 'zh' ? cny : '≈ ' + usd;
+      convertedElement.textContent = currentLanguage === 'zh' ? '≈ ' + usd : 'CNY ' + cny;
+      const reference = currentLanguage === 'zh' ? '参考汇率' : 'Reference rate';
+      const saved = usingSavedRate ? (currentLanguage === 'zh' ? '（上次记录）' : ' (last saved)') : '';
+      exchangeStatus.textContent = ` · ${reference} · ${exchange.date}${saved}`;
+    }
+
+    async function refreshExchangeRate() {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 8000);
+      try {
+        const response = await fetch(pricing.exchangeUrl, { signal: controller.signal });
+        if (!response.ok) throw new Error('Exchange-rate request failed');
+        const latest = await response.json();
+        if (!validExchange(latest) || latest.base !== 'CNY' || latest.quote !== 'USD') {
+          throw new Error('Invalid exchange-rate response');
+        }
+        if (latest.date < exchange.date) throw new Error('Older exchange-rate response');
+        exchange = { rate: latest.rate, date: latest.date };
+        usingSavedRate = false;
+        try { localStorage.setItem(pricing.cacheKey, JSON.stringify(exchange)); } catch { /* Optional cache. */ }
+      } catch {
+        usingSavedRate = true;
+      } finally {
+        clearTimeout(timeout);
+        renderPrice();
+      }
+    }
+
     const buttons = document.querySelectorAll('[data-language]');
     buttons.forEach((button) => button.addEventListener('click', () => {
       const lang = button.dataset.language;
+      currentLanguage = lang;
       document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
       document.title = lang === 'zh' ? 'china-electric.com | 域名出售' : 'china-electric.com | Domain for Sale';
       document.querySelectorAll('[data-zh][data-en]').forEach((element) => { element.textContent = element.dataset[lang]; });
       buttons.forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+      renderPrice();
     }));
+    renderPrice();
+    refreshExchangeRate();
+    setInterval(renderPrice, 1000);
+    setInterval(refreshExchangeRate, pricing.refreshMs);
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) renderPrice();
+    });
   </script>
 </body>
 </html>
